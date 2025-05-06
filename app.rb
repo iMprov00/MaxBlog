@@ -9,10 +9,13 @@ def init_db
 end
 
 $cur_us = 0
+$active = 0
 
 before do 
 
 	@current_user = $cur_us
+	@active = $active
+
 	init_db
 
 end
@@ -59,6 +62,7 @@ post '/authorization' do
 
   if user && user['password_hash'] == password
   			$cur_us = user['is_admin']
+  			$active = 1
   	    redirect '/'
   elsif 
   	@error = "Неверный логин или пароль"
@@ -91,6 +95,14 @@ post '/registr' do
 
   @db.execute 'INSERT INTO Users (username, password_hash, created_at) VALUES (?, ?, datetime())', [login, password]
 
+  $active = 1
   redirect to '/'
+
+end
+
+get '/exit' do 
+
+	$active = 0
+	redirect to '/'
 
 end

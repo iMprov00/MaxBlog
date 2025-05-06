@@ -93,9 +93,15 @@
 	          </li>
           <% end %>
 
-          <li class="nav-item">
-            <a class="nav-link" href="/authorization"><i class="bi bi-person"></i>Войти</a>
-          </li>
+          <% if @active == 0 %>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/authorization"><i class="bi bi-person"></i>Войти</a>
+	          </li>
+	      <% else %>
+	      	   <li class="nav-item">
+	            <a class="nav-link" href="/exit"><i class="bi bi-person"></i>Выйти</a>
+	          </li>
+	      <% end %>
         </ul>
       </div>
     </div>
