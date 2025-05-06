@@ -33,3 +33,9 @@ get '/' do
 	erb "Hello!"
 
 end
+
+get '/authorization' do 
+
+	erb :authorization
+
+end
