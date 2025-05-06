@@ -11,6 +11,7 @@ end
 
 before do 
 
+	@current_user = 0
 	init_db
 
 end
@@ -31,7 +32,7 @@ end
 
 get '/' do 
 
-	@current_user = 0
+
 	erb "Hello!"
 
 end
