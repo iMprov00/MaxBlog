@@ -69,6 +69,6 @@ end
 
 get '/registr' do 
 
- erb "Hello!"
+ erb :registr
 
 end

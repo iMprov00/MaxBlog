@@ -1,0 +1,47 @@
+<!-- контейнер -->
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+
+        <!-- Карточка с формой -->
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+
+            <h2 class="text-center mb-4">Регистрация</h2>
+
+            <% if @error %>
+              <div class="alert alert-danger mb-3">
+                <%= @error %>
+              </div>
+            <% end %>
+
+            <form method="post" action="/registr">
+
+              <label class="form-label" style="font-weight: bold">Логин (пвсевдоним)</label>
+              <input type="login" class="form-control" name="login" placeholder="Введите логин">
+
+              <br/>
+
+              <label class="form-label" style="font-weight: bold">Пароль</label>
+              <input type="password" class="form-control" name="password" placeholder="Введите пароль">
+
+              <br/>
+
+              <label class="form-label" style="font-weight: bold">Подтвердите пароль</label>
+              <input type="password" class="form-control" name="password" placeholder="Подтвердите пароль">
+
+              <br/>
+
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" class="btn btn-primary mb-3">Зарегистрироваться</button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
