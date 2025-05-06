@@ -8,6 +8,7 @@ def init_db
 	@db.results_as_hash = true
 end
 
+
 before do 
 
 	init_db
@@ -30,6 +31,7 @@ end
 
 get '/' do 
 
+	@current_user = 0
 	erb "Hello!"
 
 end
