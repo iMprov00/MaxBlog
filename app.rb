@@ -10,10 +10,11 @@ def init_db
 	@db.results_as_hash = true
 end
 
+$cur_us = 0
 
 before do 
 
-	@current_user = 0
+	@current_user = $cur_us
 	init_db
 
 end
@@ -42,5 +43,24 @@ end
 get '/authorization' do 
 
 	erb :authorization
+
+end
+
+post '/authorization' do 
+
+	login = params[:login]
+	password = params[:password]
+
+	 # Ищем пользователя
+  user = @db.execute('SELECT * FROM Users WHERE username = ?', login).first
+
+  if user && user['password_hash'] == password
+  			$cur_us = 1
+  	    redirect '/'
+  elsif 
+  	@error = "Неверный логин или пароль"
+    erb :authorization
+  end
+  	
 
 end
