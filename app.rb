@@ -49,13 +49,13 @@ post '/authorization' do
 	login = params[:login].to_s.strip
 	password = params[:password].to_s.strip
 
-	 # Ищем пользователя
-  user = @db.execute('SELECT * FROM Users WHERE username = ?', login).first
-
   if login.empty? || password.empty?
     @error = "Не все поля заполненны"
   	return erb :authorization
   end
+
+	 # Ищем пользователя
+  user = @db.execute('SELECT * FROM Users WHERE username = ?', login).first
 
   if user && user['password_hash'] == password
   			$cur_us = user['is_admin']
@@ -70,5 +70,27 @@ end
 get '/registr' do 
 
  erb :registr
+
+end
+
+post '/registr' do 
+
+	login = params[:login].to_s.strip
+	password = params[:password].to_s.strip
+	password_to = params[:password_to].to_s.strip
+
+	if login.empty? || password.empty?
+    @error = "Не все поля заполненны"
+  	return erb :registr
+  end
+
+  if password != password_to 
+  	@error = "Пароли не совпадают"
+  	return erb :registr
+  end
+
+  @db.execute 'INSERT INTO Users (username, password_hash, created_at) VALUES (?, ?, datetime())', [login, password]
+
+  redirect to '/'
 
 end
