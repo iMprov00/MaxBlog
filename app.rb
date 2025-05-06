@@ -3,8 +3,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
-enable :sessions
-
 def init_db 
 	@db = SQLite3::Database.new 'blog.db'
 	@db.results_as_hash = true
@@ -48,19 +46,29 @@ end
 
 post '/authorization' do 
 
-	login = params[:login]
-	password = params[:password]
+	login = params[:login].to_s.strip
+	password = params[:password].to_s.strip
 
 	 # Ищем пользователя
   user = @db.execute('SELECT * FROM Users WHERE username = ?', login).first
 
+  if login.empty? || password.empty?
+    @error = "Не все поля заполненны"
+  	return erb :authorization
+  end
+
   if user && user['password_hash'] == password
-  			$cur_us = 1
+  			$cur_us = user['is_admin']
   	    redirect '/'
   elsif 
   	@error = "Неверный логин или пароль"
     erb :authorization
   end
   	
+end
+
+get '/registr' do 
+
+ erb "Hello!"
 
 end
