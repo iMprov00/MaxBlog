@@ -1,0 +1,39 @@
+<form action="/new" method="POST">
+  <div class="mb-3">
+    <h1>Расскажи, что у тебя нового?</h1>
+  </div>
+
+
+
+  <div class="mb-3">
+    <textarea name="content" class="form-control" placeholder="Ну я тебя слушаю..." 
+              id="postContent" style="height: 100px"></textarea>
+  </div>
+
+  <!-- Блок с кнопками смайликов -->
+  <div class="mb-2">
+    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😊')">😊</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😂')">😂</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('❤️')">❤️</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('👍')">👍</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😱')">😱</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('👎')">👎</button>
+  </div>
+
+  <br/>
+  <button type="submit" class="btn btn-primary">Создать</button>
+</form>
+
+<script>
+  function addEmoji(emoji) {
+    const textarea = document.getElementById('postContent');
+    const startPos = textarea.selectionStart;
+    const endPos = textarea.selectionEnd;
+    const textBefore = textarea.value.substring(0, startPos);
+    const textAfter = textarea.value.substring(endPos, textarea.value.length);
+    
+    textarea.value = textBefore + emoji + textAfter;
+    textarea.focus();
+    textarea.selectionStart = textarea.selectionEnd = startPos + emoji.length;
+  }
+</script>

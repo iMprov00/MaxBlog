@@ -36,7 +36,7 @@ configure do
 	"post_id" INTEGER PRIMARY KEY AUTOINCREMENT,
 	"created_date" DATE,
 	"content" TEXT 
-	
+
 	)'
 
 	@db.execute 'CREATE TABLE IF NOT EXISTS "Comment" (
@@ -128,5 +128,11 @@ get '/exit' do
 
 	$active = 0
 	redirect to '/'
+
+end
+
+get '/new' do 
+
+	erb :new
 
 end
