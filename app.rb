@@ -26,11 +26,24 @@ configure do
 
 	@db.execute 'CREATE TABLE IF NOT EXISTS Users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT,
+  username TEXT UNIQUE,
   password_hash TEXT,
   is_admin BOOLEAN DEFAULT 0,
   created_at DATE
 )'
+
+	@db.execute 'CREATE TABLE IF NOT EXISTS "Posts" (
+	"post_id" INTEGER PRIMARY KEY AUTOINCREMENT,
+	"created_date" DATE,
+	"content" TEXT
+	)'
+
+	@db.execute 'CREATE TABLE IF NOT EXISTS "Comment" (
+	"id_comment" INTEGER PRIMARY KEY AUTOINCREMENT,
+	"created_date" DATE, 
+	"comment" TEXT, 
+	"post_id" INTEGER,
+	"user_id" INTEGER);'
 
 end
 
@@ -92,6 +105,16 @@ post '/registr' do
   	@error = "Пароли не совпадают"
   	return erb :registr
   end
+
+  user = @db.execute('SELECT * FROM Users WHERE username = ?', login).first
+
+
+  existing_user = @db.execute('SELECT 1 FROM Users WHERE username = ?', login).first
+  if existing_user
+    @error = "Пользователь с таким логином уже существует"
+    return erb :registr
+  end
+  	
 
   @db.execute 'INSERT INTO Users (username, password_hash, created_at) VALUES (?, ?, datetime())', [login, password]
 
