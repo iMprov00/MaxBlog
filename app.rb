@@ -35,7 +35,8 @@ configure do
 	@db.execute 'CREATE TABLE IF NOT EXISTS "Posts" (
 	"post_id" INTEGER PRIMARY KEY AUTOINCREMENT,
 	"created_date" DATE,
-	"content" TEXT 
+	"content" TEXT,
+	"head" TEXT 
 
 	)'
 
@@ -134,5 +135,26 @@ end
 get '/new' do 
 
 	erb :new
+
+end
+
+post '/new' do
+
+	head = params[:head]
+	content = params[:content]
+
+	if head.length <= 0
+		@error = "А заголовок то пусто!"
+		return erb :new
+	end
+
+	if content.length <= 0 
+		@error = "Эй, ты ничего не написал!"
+		return erb :new
+	end
+
+	@db.execute 'INSERT INTO Posts (content, head, created_date) VALUES (?,datetime())', [content, head]
+
+	redirect to '/'
 
 end
