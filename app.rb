@@ -159,3 +159,30 @@ post '/new' do
 	redirect to '/'
 
 end
+
+get '/post/:id' do  
+
+  id = params[:id]
+
+  @result = @db.execute 'SELECT * FROM Posts WHERE post_id = ?', [id]
+  @row = @result[0]
+  @comment = @db.execute 'SELECT * FROM Comment WHERE post_id = ? ORDER BY post_id DESC', [id]
+  @error = params[:error]
+
+  erb :post
+
+end
+
+post '/post/:id' do  
+
+  id = params[:id]  
+  content = params[:content].to_s.strip  
+
+  if content.empty?  
+    redirect to("/post/#{id}?error=Комментарий не может быть пустым!")  
+  else  
+    @db.execute 'INSERT INTO Comment (comment, created_date, post_id) VALUES (?, datetime(), ?)', [content, id]  
+    redirect to("/post/#{id}")  
+  end  
+
+end

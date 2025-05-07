@@ -1,0 +1,38 @@
+<h1>Детали поста:</h1>
+<br/>
+
+<% @result.each do |post| %>
+	    <p>
+	      <%= @row['content'] %>
+	      <br/>
+	        <span style="font-size: 75%; color: #999; font-style: italic">Время добавления поста: <%= @row['created_date'] %></span>
+	    </p>
+	  <hr/> <!-- раздляет чертой --> 
+<% end %>
+
+<h4>Комментарии:</h4>
+<br/>
+<% @comment.each do |comm| %>
+	    <p>
+	      <%= comm['comment'] %>
+	      <br/>
+	       <span style="font-size: 75%; color: #999; font-style: italic">Время добавления: <%= comm['created_date']%></span>
+	    </p>
+	  <hr/> <!-- раздляет чертой --> 
+<% end %>
+
+<form action="/post/<%= @row['post_id'] %>" method="POST">
+
+  <div class="mb-3">
+  	<h4>Написать комментарий</h4>
+
+  </div>
+
+  <div class="mb-3">
+	  <textarea name="content" class="form-control" placeholder="Расскажи что думаешь!" id="floatingTextarea2" style="height: 100px"></textarea>
+  </div>
+
+  <br/>
+  	<button type="submit" class="btn btn-primary">Добавить комментарий</button>
+
+</form>
