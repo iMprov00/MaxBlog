@@ -37,7 +37,8 @@ configure do
 	"post_id" INTEGER PRIMARY KEY AUTOINCREMENT,
 	"created_date" DATE,
 	"content" TEXT,
-	"head" TEXT 
+	"head" TEXT,
+	"image_path" TEXT
 
 	)'
 
@@ -124,14 +125,16 @@ post '/registr' do
 
   @db.execute 'INSERT INTO Users (username, password_hash, created_at) VALUES (?, ?, datetime())', [login, password]
 
-  $active = 1
-  redirect to '/'
+  redirect to '/authorization'
 
 end
 
 get '/exit' do 
 
+	$cur_us = 0
 	$active = 0
+	$name_user = ""
+	
 	redirect to '/'
 
 end
@@ -146,6 +149,8 @@ post '/new' do
 
 	head = params[:head]
 	content = params[:content]
+	# image = params[:image]
+
 
 	if head.length <= 0
 		@error = "А заголовок то пусто!"
@@ -156,6 +161,17 @@ post '/new' do
 		@error = "Эй, ты ничего не написал!"
 		return erb :new
 	end
+
+	#   # Создаем папку для загрузок, если ее нет
+  # Dir.mkdir('public/uploads') unless Dir.exist?('public/uploads')
+
+  # filename = "#{Time.now.to_i}_#{image}"
+  # filepath = "uploads/#{filename}"
+
+  #     # Сохраняем файл
+  #   File.open("public/#{filepath}", 'wb') do |f|
+  #     f.write(image[:tempfile].read)
+  #   end
 
 	@db.execute 'INSERT INTO Posts (content, head, created_date) VALUES (?, ?, datetime())', [content, head]
 

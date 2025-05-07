@@ -98,8 +98,12 @@
 	            <a class="nav-link" href="/authorization"><i class="bi bi-person"></i>Войти</a>
 	          </li>
 	      <% else %>
-	      	   <li class="nav-item">
-	            <a class="nav-link" href="/exit"><i class="bi bi-person"></i>Выйти</a>
+            <li class="nav-item">
+              <a class="nav-link"><i class="bi bi-person"></i><%= $name_user %></a>
+            </li>
+
+	      	  <li class="nav-item">
+	            <a class="nav-link" href="/exit"><i class="bi bi-box-arrow-right"></i>Выйти</a>
 	          </li>
 	      <% end %>
         </ul>

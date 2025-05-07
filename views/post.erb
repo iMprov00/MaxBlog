@@ -22,42 +22,45 @@
 	  <hr/> <!-- раздляет чертой --> 
 <% end %>
 
-<form action="/post/<%= @row['post_id'] %>" method="POST">
+<% if $active == 1 %>
 
-  <div class="mb-3">
-  	<h4>Написать комментарий</h4>
+	<form action="/post/<%= @row['post_id'] %>" method="POST">
 
-  </div>
+	  <div class="mb-3">
+	  	<h4>Написать комментарий</h4>
 
-  <div class="mb-3">
-	  <textarea name="content" class="form-control" placeholder="Расскажи что думаешь!" id="floatingTextarea2" style="height: 100px"></textarea>
-  </div>
-  <!-- Блок с кнопками смайликов -->
-  <div class="mb-2">
-    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😊')">😊</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😂')">😂</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('❤️')">❤️</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('👍')">👍</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😱')">😱</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('👎')">👎</button>
-  </div>
-  <br/>
-  	<button type="submit" class="btn btn-primary">Добавить комментарий</button>
+	  </div>
 
-</form>
+	  <div class="mb-3">
+		  <textarea name="content" class="form-control" placeholder="Расскажи что думаешь!" id="floatingTextarea2" style="height: 100px"></textarea>
+	  </div>
+	  <!-- Блок с кнопками смайликов -->
+	  <div class="mb-2">
+	    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😊')">😊</button>
+	    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😂')">😂</button>
+	    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('❤️')">❤️</button>
+	    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('👍')">👍</button>
+	    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('😱')">😱</button>
+	    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addEmoji('👎')">👎</button>
+	  </div>
+	  <br/>
+	  	<button type="submit" class="btn btn-primary">Добавить комментарий</button>
+
+	</form>
 
 
 
-<script>
-  function addEmoji(emoji) {
-    const textarea = document.getElementById('floatingTextarea2');
-    const startPos = textarea.selectionStart;
-    const endPos = textarea.selectionEnd;
-    const textBefore = textarea.value.substring(0, startPos);
-    const textAfter = textarea.value.substring(endPos, textarea.value.length);
-    
-    textarea.value = textBefore + emoji + textAfter;
-    textarea.focus();
-    textarea.selectionStart = textarea.selectionEnd = startPos + emoji.length;
-  }
-</script>
+	<script>
+	  function addEmoji(emoji) {
+	    const textarea = document.getElementById('floatingTextarea2');
+	    const startPos = textarea.selectionStart;
+	    const endPos = textarea.selectionEnd;
+	    const textBefore = textarea.value.substring(0, startPos);
+	    const textAfter = textarea.value.substring(endPos, textarea.value.length);
+	    
+	    textarea.value = textBefore + emoji + textAfter;
+	    textarea.focus();
+	    textarea.selectionStart = textarea.selectionEnd = startPos + emoji.length;
+	  }
+	</script>
+<% end %>
