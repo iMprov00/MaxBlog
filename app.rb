@@ -10,6 +10,7 @@ end
 
 $cur_us = 0
 $active = 0
+$name_user = ""
 
 before do 
 
@@ -45,7 +46,7 @@ configure do
 	"created_date" DATE, 
 	"comment" TEXT, 
 	"post_id" INTEGER,
-	"user_id" INTEGER);'
+	"name_user" TEXT);'
 
 end
 
@@ -79,6 +80,8 @@ post '/authorization' do
   if user && user['password_hash'] == password
   			$cur_us = user['is_admin']
   			$active = 1
+  			$name_user = user['username']
+
   	    redirect '/'
   elsif 
   	@error = "Неверный логин или пароль"
@@ -177,11 +180,12 @@ post '/post/:id' do
 
   id = params[:id]  
   content = params[:content].to_s.strip  
+  user = $name_user
 
   if content.empty?  
     redirect to("/post/#{id}?error=Комментарий не может быть пустым!")  
   else  
-    @db.execute 'INSERT INTO Comment (comment, created_date, post_id) VALUES (?, datetime(), ?)', [content, id]  
+    @db.execute 'INSERT INTO Comment (comment, created_date, post_id, name_user) VALUES (?, datetime(), ?, ?)', [content, id, user]  
     redirect to("/post/#{id}")  
   end  
 
