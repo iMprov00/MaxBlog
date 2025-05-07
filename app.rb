@@ -134,14 +134,20 @@ get '/exit' do
 	$cur_us = 0
 	$active = 0
 	$name_user = ""
-	
+
 	redirect to '/'
 
 end
 
 get '/new' do 
 
-	erb :new
+	if $active != 1 
+		redirect to '/'
+	else
+
+		erb :new
+
+	end
 
 end
 
