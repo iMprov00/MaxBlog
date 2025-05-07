@@ -51,8 +51,9 @@ end
 
 get '/' do 
 
+	@result = @db.execute 'SELECT * FROM Posts ORDER BY post_id DESC'
 
-	erb "Hello!"
+	erb :index
 
 end
 

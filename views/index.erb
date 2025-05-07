@@ -1,0 +1,12 @@
+<% @result.each do |post| %>
+	    <p>
+	      <h1><%= post['head'] %></h1>
+	      <%= post['content'] %>
+	      <br/>
+	      <span style="font-size: 75%; color: #999; font-style: italic">Время добавления: <%= post['created_date'] %></span>
+	      <br/>
+	      <br/>
+	      <a href="/post/<%= post['id'] %>">Комментарии</a> <!—- передаем номер поста -—>
+	    </p>
+	  <hr/> <!-- раздляет чертой --> 
+<% end %>
