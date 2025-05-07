@@ -153,7 +153,7 @@ post '/new' do
 		return erb :new
 	end
 
-	@db.execute 'INSERT INTO Posts (content, head, created_date) VALUES (?,datetime())', [content, head]
+	@db.execute 'INSERT INTO Posts (content, head, created_date) VALUES (?, ?, datetime())', [content, head]
 
 	redirect to '/'
 
