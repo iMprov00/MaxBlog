@@ -14,8 +14,9 @@
 <br/>
 <% @comment.each do |comm| %>
 	    <p>
+	    	<span style="font-size: 100%; color: #999; font-style: italic"><%= comm['name_user']%></span>
+	    	<br/>
 	      <%= comm['comment'] %>
-	      	<span style="font-size: 75%; color: #999; font-style: italic">Пользователь: <%= comm['name_user']%></span>
 	      <br/>
 	       <span style="font-size: 75%; color: #999; font-style: italic">Время добавления: <%= comm['created_date']%></span>
 	    </p>
