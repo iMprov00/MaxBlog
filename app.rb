@@ -35,7 +35,8 @@ configure do
 	@db.execute 'CREATE TABLE IF NOT EXISTS "Posts" (
 	"post_id" INTEGER PRIMARY KEY AUTOINCREMENT,
 	"created_date" DATE,
-	"content" TEXT
+	"content" TEXT 
+	
 	)'
 
 	@db.execute 'CREATE TABLE IF NOT EXISTS "Comment" (
